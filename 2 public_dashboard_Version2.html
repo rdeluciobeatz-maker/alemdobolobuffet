@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Além do Bolo — Painel</title>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+  <!-- Carrega o módulo de autenticação -->
+  <script src="../assets/js/auth.js"></script>
+  <script>
+    // Protege a página: se não autenticado, redireciona para login
+    if (!Auth.estaAutenticado()) {
+      window.location.href = 'login.html';
+    }
+  </script>
+
+  <header class="cabecalho">
+    <h1>Além do Bolo — Painel Interno</h1>
+    <div>
+      <button id="btn-logout" class="btn sec">Sair</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>Cadastro de insumo</h2>
+      <form id="form-cadastrar-insumo">
+        <label for="nome-insumo">Nome do insumo</label>
+        <input id="nome-insumo" required />
+        <label for="unidade-insumo">Unidade (ex: kg, un, lt)</label>
+        <input id="unidade-insumo" required />
+        <button type="submit" class="btn">Adicionar insumo</button>
+        <p class="aviso" id="msg-cadastrar"></p>
+      </form>
+    </section>
+
+    <section class="card grid-2">
+      <div>
+        <h2>Registrar entrada</h2>
+        <form id="form-entrada">
+          <label for="insumo-entrada">Insumo</label>
+          <select id="insumo-entrada"></select>
+
+          <label for="quant-entrada">Quantidade</label>
+          <input id="quant-entrada" type="number" step="0.01" min="0.01" required />
+
+          <label for="custo-entrada">Custo unitário (R$)</label>
+          <input id="custo-entrada" type="number" step="0.01" min="0" required />
+
+          <button type="submit" class="btn">Registrar entrada</button>
+          <p class="aviso" id="msg-entrada"></p>
+        </form>
+      </div>
+
+      <div>
+        <h2>Registrar saída</h2>
+        <form id="form-saida">
+          <label for="insumo-saida">Insumo</label>
+          <select id="insumo-saida"></select>
+
+          <label for="quant-saida">Quantidade</label>
+          <input id="quant-saida" type="number" step="0.01" min="0.01" required />
+
+          <button type="submit" class="btn danger">Registrar saída</button>
+          <p class="aviso" id="msg-saida"></p>
+        </form>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Estoque</h2>
+      <table id="tabela-estoque" class="tabela">
+        <thead>
+          <tr>
+            <th>Insumo</th>
+            <th>Quantidade</th>
+            <th>Unidade</th>
+            <th>Custo médio</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    <section class="card">
+      <h2>Registros (Últimos 100)</h2>
+      <table id="tabela-registros" class="tabela">
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Tipo</th>
+            <th>Insumo</th>
+            <th>Quantidade</th>
+            <th>Custo unit.</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+  </main>
+
+  <script src="../assets/js/utils.js"></script>
+  <script src="../assets/js/app.js"></script>
+  <script>
+    document.getElementById('btn-logout').addEventListener('click', function () {
+      Auth.logout();
+      window.location.href = 'login.html';
+    });
+  </script>
+</body>
+</html>
